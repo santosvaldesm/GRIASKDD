@@ -1,0 +1,32 @@
+//console.warn('Mouse DOWN ' + mousePosX + ',' + mousePosY);
+//USO DE RETORNO return {x: evt.clientX - rect.left,y: evt.clientY - rect.top};
+
+    private void crearNodosDePrueba() {
+        Node nuevoNodo = new Node(0, "PlainText", "300", "22", "_r", this);
+        nuevoNodo.getConexiones().add("1");
+        nuevoNodo.getConexiones().add("2");
+        nuevoNodo.getConexiones().add("3");
+        nuevoNodo.getConexiones().add("4");
+        listaNodos.add(nuevoNodo);
+
+        listaNodos.add(new Node(1, "PlainText", "500", "100", "_v", this));
+        listaNodos.add(new Node(2, "PlainText", "150", "100", "_a", this));
+
+        nuevoNodo = new Node(3, "ConnectionDB", "150", "300", "_r", this);
+        nuevoNodo.getConexiones().add("1");
+        nuevoNodo.getConexiones().add("2");
+        nuevoNodo.getConexiones().add("4");
+        listaNodos.add(nuevoNodo);
+
+        nuevoNodo = new Node(4, "ConnectionDB", "450", "300", "_v", this);
+        nuevoNodo.getConexiones().add("1");
+        listaNodos.add(nuevoNodo);
+    }
+
+
+    public void soltarHojaEnGrafico(DragDropEvent event) {//SE ARRATRO UNA HOJA DEL ARBOL HASTA EL AREA GRAFICA
+        event.getd
+        System.out.println("Se solto hoja: " + event.toString());
+        TreeNode seleccionado = (TreeNode)event.getData();
+        System.out.println("a: " + seleccionado.toString());
+    }

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgHoeffdingTree" header="CONFIGURATION HOEFFDING TREE CLASIFIER" widgetVar="wvDlgHoeffdingTree" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.debugHT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.doNotCheckCapabilitiesHT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Grace Period: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.gracePeriodHT}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Hoeffding Tie Threshold: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.hoeffdingTieThresholdHT}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>      
+            <p:outputLabel value="Leaf Prediction Strategy: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataClassification.leafPredictionStrategyHT}" style="width:155px">                
+                <f:selectItem itemValue="0" itemLabel="Majority Class"/>
+                <f:selectItem itemValue="1" itemLabel="Naive Bayes"/>
+                <f:selectItem itemValue="2" itemLabel="Naive Bayes adaptive"/>                    
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>                  
+            </p:selectOneMenu>            
+            <p:outputLabel value="Minimum Fraction Of Weight Info Gain: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.minimumFractionOfWeightInfoGainHT}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Naive Bayes Prediction Threshold: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.naiveBayesPredictionThresholdHT}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Print Leaf Models: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.printLeafModelsHT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Split Confidence: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.splitConfidenceHT}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Binary Splits: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataClassification.splitCriterionHT}" style="width:155px">                
+                <f:selectItem itemValue="0" itemLabel="Gini split"/>
+                <f:selectItem itemValue="1" itemLabel="Info Gain split"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>                  
+            </p:selectOneMenu>            
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+

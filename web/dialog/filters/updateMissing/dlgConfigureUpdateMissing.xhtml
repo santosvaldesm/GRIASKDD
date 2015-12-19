@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgUpdateMissing" header="CONFIGURATION UPDATE MISSING FILTER" widgetVar="wvDlgConfigureUpdateMissing" resizable="false" modal="true">  
+
+        <h:panelGrid columns="2">                           
+            <p:outputLabel value="Select Attributes :"/>     
+            <p:selectCheckboxMenu 
+                id="IdComboTipReg" label="Attributes:" filter="true" filterMatchMode="contains" 
+                value="#{graphicControlMB.selectedNode.dataUpdateMissing.selectedAttributes}" >
+                <f:selectItems var="attribute" value="#{graphicControlMB.selectedNode.dataUpdateMissing.listAttributes}" itemLabel="#{attribute.value}" itemValue="#{attribute.id}" />
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:selectCheckboxMenu>
+
+            <p:outputLabel value="Date format:" class="bold"/>     
+            <p:inputText value="#{graphicControlMB.selectedNode.dataUpdateMissing.dateFormat}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:inputText>
+
+            <p:outputLabel value="Date replacement value:" class="bold"/>
+            <p:inputText value="#{graphicControlMB.selectedNode.dataUpdateMissing.dateReplacementValue}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:inputText>
+
+            <p:outputLabel value="Debug:" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataUpdateMissing.debug}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Do not check capabilities" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataUpdateMissing.checkCapabilities}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Ignore class" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataUpdateMissing.ignoreClass}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Nominal string replacement value:" class="bold"/>
+            <p:inputText value="#{graphicControlMB.selectedNode.dataUpdateMissing.nominalReplace}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:inputText>
+
+            <p:outputLabel value="Numeric replacement value:" class="bold"/>
+            <p:spinner value="#{graphicControlMB.selectedNode.dataUpdateMissing.numericReplace}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataUpdateMissing.changeForm}"/>
+            </p:spinner>
+
+
+        </h:panelGrid>
+        <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataUpdateMissing.saveConfiguration}"/>
+        <br/>
+    </p:dialog>
+</html>
+

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdCanopy" header="CONFIGURATION CANOPY MEANS" widgetVar="wvCanopy" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.debugCa}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.doNotCheckCapabilitiesCa}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Dont Replace Missing Values: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.dontReplaceMissingValuesCa}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Max Num Candidate Canopies To Hold In Memory: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.maxNumCandidateCanopiesToHoldInMemoryCa}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Minimum Canopy Density: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.minimumCanopyDensityCa}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Num Clusters: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.numClustersCa}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Periodic Pruning Rate: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.periodicPruningRateCa}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Sedd: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.seddCa}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="t1: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.t1Ca}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="t2: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.t2Ca}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber>
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+

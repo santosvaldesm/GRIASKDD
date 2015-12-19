@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgTxtSaverClusterOutput" widgetVar="wvDlgTxtSaverClusterOutput" header="TXT Download Cluster Output" modal="true" closable="true" resizable="false">
+        <h:panelGrid columns="2">            
+            <p:outputLabel value="File Name"/>
+            <p:inputText value="#{graphicControlMB.selectedNode.dataCluster.fileName}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:inputText>
+            <h:commandButton 
+                value="Download"                     
+                onclick="PF('wvDlgTxtSaverClusterOutput').hide()"
+                title="Download">  
+                <p:fileDownload value="#{graphicControlMB.selectedNode.dataCluster.fileDownloadTxt}"/>  
+            </h:commandButton>                                         
+        </h:panelGrid>
+    </p:dialog>    
+</html>
+

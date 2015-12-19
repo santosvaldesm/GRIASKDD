@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgReplaceValue" header="CONFIGURATION REPLACE VALUE FILTER" widgetVar="wvDlgConfigureReplaceValue" resizable="false" modal="true">  
+        <!-- p:ajax event="close" oncomplete="repintarAreaDeTrabajo();" update=":IdFormPrincipal:IdPanelCanvasGrafico"/ -->        
+        <br/>
+        Attibute:
+        <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataReplaceValue.idAtributeSelected}" style="width:250px">
+            <f:selectItems value="#{graphicControlMB.selectedNode.dataReplaceValue.listAttributes}" var="atr" itemLabel="#{atr.name()}" itemValue="#{atr.index()}" />
+            <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataReplaceValue.changeAtribute}" render="IdTableValues"/>
+        </p:selectOneMenu>
+        <br/><br/>
+        <p:dataTable
+            id="IdTableValues"                                     
+            var="value"
+            rowKey="#{value.id}" 
+            value="#{graphicControlMB.selectedNode.dataReplaceValue.listValues}"
+            paginatorPosition="bottom"  
+            emptyMessage="Empty or Attribute is not Nominal"
+            currentPageReportTemplate="Showing {startRecord}-{endRecord} of {totalRecords}"                                    
+            style="width: 550px; height: 200px;"                                                
+            resizableColumns="true">
+            <f:facet name="header">
+                Attribute values
+            </f:facet>
+            <p:column headerText="Id" width="30">
+                #{value.id + 1}
+            </p:column>                           
+            <p:column headerText="Value" width="300">
+                #{value.value}
+            </p:column>                           
+            <p:column headerText="Replace" width="130">
+                <p:inputText value="#{value.replace}">
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataReplaceValue.changeForm}"/>
+                </p:inputText>
+            </p:column>                           
+        </p:dataTable>          
+        <br/><br/>
+        <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataReplaceValue.saveConfiguration}"/>
+        <br/>
+    </p:dialog>
+</html>
+

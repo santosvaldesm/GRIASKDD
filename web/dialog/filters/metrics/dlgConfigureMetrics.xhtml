@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgConfigureMetrics" header="CONFIGURATION METRICS FILTER" widgetVar="wvDlgConfigureMetrics" resizable="false" modal="true">  
+        <h:panelGrid columns="2">                        
+            <p:outputLabel value="Select Attributes :"/>     
+            <p:selectCheckboxMenu 
+                label="Attributes:" filter="true" filterMatchMode="contains"  style="width: 250px;"
+                value="#{graphicControlMB.selectedNode.dataMetrics.selectedAttributes}" >
+                <f:selectItems var="attribute" value="#{graphicControlMB.selectedNode.dataMetrics.listAttributes}" itemLabel="#{attribute.value}" itemValue="#{attribute.id}" />
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataMetrics.changeForm}"/>
+            </p:selectCheckboxMenu>
+            <p:outputLabel value="Nominal Strategy"/>
+            <p:selectOneMenu
+                filter="true" filterMatchMode="contains" style="width: 250px;"
+                value="#{graphicControlMB.selectedNode.dataMetrics.nominalStrategy}">                
+                <f:selectItem itemLabel="Mode" itemValue="Mode" />
+                <f:selectItem itemLabel="Minimum" itemValue="Minimum" />
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataMetrics.changeForm}"/>
+            </p:selectOneMenu>
+            <p:outputLabel value="Numeric Strategy"/>
+            <h:panelGrid columns="2">
+                <p:selectOneMenu 
+                    filter="true" filterMatchMode="contains" 
+                    value="#{graphicControlMB.selectedNode.dataMetrics.numericStrategy}">
+                    <f:selectItem itemLabel="Average(Mean)" itemValue="Average" />
+                    <f:selectItem itemLabel="Median" itemValue="Median" />
+                    <f:selectItem itemLabel="Mode" itemValue="Mode"/>
+                    <f:selectItem itemLabel="Minimum" itemValue="Minimum"/>
+                    <f:selectItem itemLabel="Maximum" itemValue="Maximum"/>
+                    <f:selectItem itemLabel="PreserveDeviation" itemValue="PreserveDeviation"/>
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataMetrics.changeForm}"/>
+                </p:selectOneMenu>
+                
+            </h:panelGrid>
+            <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataMetrics.saveConfiguration}"/>
+        </h:panelGrid>
+        <br/>
+    </p:dialog>
+</html>
+

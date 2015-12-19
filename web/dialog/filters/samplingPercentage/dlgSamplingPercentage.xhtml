@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgSamplingPercentage" header="CONFIGURATION SAMPLING PERCENTAGE" widgetVar="wvDlgSamplingPercentage" resizable="false" modal="true">  
+
+        <h:panelGrid columns="2">                           
+            <p:outputLabel value="Percentage:" class="bold"/>
+            <p:spinner value="#{graphicControlMB.selectedNode.dataSamplingPercentage.percentage}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSamplingPercentage.changeForm}"/>
+            </p:spinner>           
+
+            <p:outputLabel value="Invert selection" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataSamplingPercentage.invertSelection}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSamplingPercentage.changeForm}"/>
+            </p:selectBooleanButton>            
+        </h:panelGrid>
+        <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataSamplingPercentage.saveConfiguration}"/>
+        <br/>
+    </p:dialog>
+</html>
+

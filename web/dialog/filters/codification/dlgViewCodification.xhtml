@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgViewCodification" header="VIEW CODIFICATION DATA" widgetVar="wvDlgViewCodification" resizable="false" modal="false">  
+        <p:tabView>
+            <p:tab title="CODIFICATION">
+                <p:dataTable 
+                    id="IdViewCodificationTable"                                     
+                    var="listOfRecords"
+                    rowKey="#{listOfRecords[0]}" 
+                    value="#{graphicControlMB.selectedNode.dataCodification.dinamicTable.listOfRecords}"                                            
+                    paginator="true"                    
+                    rows="15"                                    
+                    paginatorPosition="bottom"  
+                    emptyMessage="Empty"
+                    currentPageReportTemplate="Showing {startRecord}-{endRecord} of {totalRecords}"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    scrollable="true"
+                    scrollWidth="700"                                    
+                    pageLinks="5"
+                    resizableColumns="true">
+                    <f:facet name="header">
+                        CODIFICATION
+                    </f:facet>
+                    <p:columns 
+                        styleClass="bla" 
+                        value="#{graphicControlMB.selectedNode.dataCodification.dinamicTable.titles}" 
+                        var="titles" 
+                        columnIndexVar="index">
+                        <f:facet name="header" >
+                            <h:outputText styleClass="bla"  value="#{titles}"/>                                                
+                        </f:facet>
+                        <h:outputText styleClass="bla"  value="#{listOfRecords[index]}"/>  
+                    </p:columns>
+                </p:dataTable>  
+            </p:tab>
+            <p:tab title="DICTIONARY">
+                <p:dataTable                                 
+                    style="padding: 10px;"
+                    id="IdDictionary"                                     
+                    var="itemDictionary"
+                    rowKey="#{itemDictionary.replace}" 
+                    value="#{graphicControlMB.selectedNode.dataCodification.dictionary}"                                            
+                    paginator="true"                    
+                    rows="15"                                    
+                    paginatorPosition="bottom"  
+                    emptyMessage="Empty"
+                    currentPageReportTemplate="Showing {startRecord}-{endRecord} of {totalRecords}"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    scrollable="true"
+                    scrollWidth="700"                                    
+                    pageLinks="5"
+                    resizableColumns="true">
+                    <f:facet name="header">
+                        DICTIONARY
+                    </f:facet>
+                    <p:column headerText="Attribute" width="20">#{itemDictionary.attributeName}</p:column>                                
+                    <p:column headerText="Value" width="90">#{itemDictionary.value}</p:column>                                
+                    <p:column headerText="Codification" width="20">#{itemDictionary.replace}</p:column>                                
+                </p:dataTable>  
+            </p:tab>
+        </p:tabView>
+    </p:dialog>
+</html>
+

@@ -1,0 +1,28 @@
+            <p:outputLabel value="Print Leaf Models: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.printLeafModelsHT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+
+            <p:outputLabel value="Split Confidence: "/>
+            <pe:inputNumber value="#{graphicControlMB.selectedNode.dataClassification.splitConfidenceHT}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>                
+
+            <p:outputLabel value="Binary Splits: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataClassification.splitCriterionHT}" style="width:155px">                
+                <f:selectItem itemValue="0" itemLabel="Gini split"/>
+                <f:selectItem itemValue="1" itemLabel="Info Gain split"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociationApriori.changeForm}"/>                  
+            </p:selectOneMenu>
+
+
+
+
+//USO DE JAVA EN CODIGO
+https://weka.wikispaces.com/Use+Weka+in+your+Java+code#Attribute selection
+
+//console.warn('Mouse DOWN ' + mousePosX + ',' + mousePosY);
+//USO DE RETORNO return {x: evt.clientX - rect.left,y: evt.clientY - rect.top};
+//HACER UPDATE
+1. git > commit   2. git > Remote > Push
+

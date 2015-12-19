@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgSelectAttributes" header="CONFIGURATION EVALUATION FILTER" widgetVar="wvDlgSelectAttributes" resizable="false" modal="true">  
+        <p:ajax event="close" listener="#{graphicControlMB.selectedNode.repaintGraphic}"/>        
+        <!-- p:tabView>
+            <p:tab title="Configuration" -->
+        <h:panelGrid columns="1" id="IdPanelConfigurationSelectAttributes">
+            <h:panelGrid columns="8">
+                <p:outputLabel value="Class: "/>
+                <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataSelectAttributes.selectedAttribute}" style="width:160px">                            
+                    <f:selectItems 
+                        value="#{graphicControlMB.selectedNode.dataSelectAttributes.listAttributes}"
+                        var="attributeEvaluation" itemLabel="#{attributeEvaluation.name()}" itemValue="#{attributeEvaluation.index()}"/>
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeAttribute}" render="IdPanelConfigurationSelectAttributes"/>                  
+                </p:selectOneMenu> 
+                <p:outputLabel value="Attribute Evaluator: "/>                
+                <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataSelectAttributes.selectedAttributeEvaluator}" style="width:170px">
+                    <f:selectItems value="#{graphicControlMB.selectedNode.dataSelectAttributes.listAttributeEvaluators}"/>                                                
+                </p:selectOneMenu>                                                
+                <p:commandButton icon="fa fa-cogs" value="Conf." actionListener="#{graphicControlMB.selectedNode.dataSelectAttributes.clickConfigureAttributeEvaluator}" />     
+                <p:outputLabel value="Search Method: "/>                
+                <p:selectOneMenu  style="width:100px">
+                    <f:selectItem itemValue="Ranker" itemLabel="Ranker"/>                            
+                </p:selectOneMenu>                        
+                <p:commandButton icon="fa fa-cogs" value="Conf." actionListener="#{graphicControlMB.selectedNode.dataSelectAttributes.clickConfigureSearchMethod}"/>                    
+            </h:panelGrid>
+            <h:panelGrid columns="6">
+                <p:outputLabel value="Attribute Selection Mode: "/>                
+                <p:selectOneRadio id="console" value="#{graphicControlMB.selectedNode.dataSelectAttributes.attributeSelectionMode}">
+                    <f:selectItem itemLabel="Use full trainin set" itemValue="Use full trainin set" />
+                    <f:selectItem itemLabel="Cross validation" itemValue="Cross validation" />
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeAttributeSelectionMode}" render="IdCrossValidationFolds IdCrossValidationSeed"/>
+                </p:selectOneRadio>  
+                <p:outputLabel value="Folds:"/>      
+                <p:spinner 
+                    id="IdCrossValidationFolds"
+                    value="#{graphicControlMB.selectedNode.dataSelectAttributes.crossValidationFolds}" 
+                    disabled="#{graphicControlMB.selectedNode.dataSelectAttributes.disabledCrossValidationFoldsSeed}">
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>
+                </p:spinner>
+                <p:outputLabel value="Seed:"/>      
+                <p:spinner 
+                    id="IdCrossValidationSeed"
+                    value="#{graphicControlMB.selectedNode.dataSelectAttributes.crossValidationSeed}" 
+                    disabled="#{graphicControlMB.selectedNode.dataSelectAttributes.disabledCrossValidationFoldsSeed}">
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>
+                </p:spinner>             
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Result List: "/>                 
+                <p:outputLabel value="Attribute selection output: "/> 
+                <p:selectOneListbox  id="IdSelectResultList" style="width: 240px; height: 250px;" value="#{graphicControlMB.selectedNode.dataSelectAttributes.selectedResult}">
+                    <f:selectItems 
+                        value="#{graphicControlMB.selectedNode.dataSelectAttributes.resultList}"
+                        var="result" itemLabel="#{result.nameResult}" itemValue="#{result.id}"/>
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeResultList}" render="IdAttributeSelectionOutput"/>
+                </p:selectOneListbox>                                
+                <h:panelGrid id="IdAttributeSelectionOutput" style="width: 585px; height:250px; overflow:hidden;">
+                    <textarea readonly="true" wrap="off" style="color: #2e6e9e;  width: 580px; height:245px; font-family:monospace; overflow: scroll;">
+                        #{graphicControlMB.selectedNode.dataSelectAttributes.txtOutput}
+                    </textarea>                
+                </h:panelGrid>                
+                <h:panelGrid columns="3">
+                    <p:commandButton icon="fa fa-play-circle-o" value="Start" actionListener="#{graphicControlMB.selectedNode.dataSelectAttributes.runProcess}" update="IdAttributeSelectionOutput IdSelectResultList"/>
+                    <p:commandButton icon="fa fa-dot-circle-o" value="Stop" actionListener="#{graphicControlMB.selectedNode.dataSelectAttributes.stopProcess}" update="IdAttributeSelectionOutput IdSelectResultList"/>
+                    <p:commandButton icon="fa fa-times-circle-o" value="Remove" actionListener="#{graphicControlMB.selectedNode.dataSelectAttributes.removeProcess}" update="IdAttributeSelectionOutput IdSelectResultList"/>
+                </h:panelGrid>
+                <p:commandButton icon="fa fa-download" value="Download output" onclick="PF('wvDlgTxtSaverOutput').show();"/>                    
+            </h:panelGrid>    
+        </h:panelGrid>
+        <!-- /p:tab>
+        <p:tab title="Selected attributes">
+            <p:dataTable                                               
+                id="IdAttributesSelectionTable" var="attribute" rowKey="# {attribute.idValue}" 
+                value="# {graphicControlMB.selectedNode.dataSelectAttributes.listEvaluatedAttributes}" 
+                emptyMessage="Empty" pageLinks="5" 
+                style="width: 600px; height: 300px;" scrollHeight="270"
+                scrollable="true" editable="true" editMode="cell">                
+                <p:column headerText="No." width="10"># {attribute.idValue}</p:column>                                                            
+                <p:column headerText="Name" width="150"># {attribute.label}</p:column>            
+                <p:column headerText="Ranked" width="150"># {attribute.weight}</p:column>
+            </p:dataTable>  
+        </p:tab>
+        </p:tabView-->        
+    </p:dialog>
+</html>
+

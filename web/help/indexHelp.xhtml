@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>GRIASKDD</title>
+        <link rel="shortcut icon" href="../recursos/img/icon.gif"/>
+        <link href="../recursos/css/estilos.css" rel="stylesheet"/>            
+    </h:head>
+    <h:body style="font-size: 10.5px !important; background-color: #ffffff;">
+        <h:form id="IdFormHelp"> 
+            <p:growl id="IdMessagesHelp" showDetail="true" sticky="false" autoUpdate="true" life="5000"/>
+            <h:panelGrid columns="2">
+                <p:tree 
+                    id="tree1" value="#{helpMB.rootTreeHelp}"  
+                    selectionMode="single" selection="#{helpMB.selectedNode}"
+                    var="node" style="width: 180px;">                                
+                    <p:ajax event="select" update=":IdFormHelp:IdMessagesHelp" listener="#{helpMB.onNodeSelect}" />
+                    <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                        <h:outputText value="#{node.name}" style="z-index: 12; color: blue;"/>
+                    </p:treeNode>               
+                    <p:treeNode type="document" icon="ui-icon-document">
+                        <h:outputText value="#{node.name}" />
+                    </p:treeNode>
+                </p:tree>            
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

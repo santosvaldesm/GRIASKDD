@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgDiscretize" header="CONFIGURATION DISCRETIZE FILTER" widgetVar="wvDlgDiscretize" resizable="false" modal="true">  
+
+        <h:panelGrid columns="2">                           
+            <p:outputLabel value="Select Attributes :"/>     
+            <p:selectCheckboxMenu 
+                id="IdComboTipReg" label="Attributes:" filter="true" filterMatchMode="contains" 
+                value="#{graphicControlMB.selectedNode.dataDiscretize.selectedAttributes}" >
+                <f:selectItems var="attribute" value="#{graphicControlMB.selectedNode.dataDiscretize.listAttributes}" itemLabel="#{attribute.attributeName}" itemValue="#{attribute.idAttribute}" />
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectCheckboxMenu>
+            
+            <p:outputLabel value="Bins number:" class="bold"/>
+            <p:spinner value="#{graphicControlMB.selectedNode.dataDiscretize.binsNumber}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:spinner>
+            
+            
+
+            <p:outputLabel value="Desired weight of instances per interval:" class="bold"/>     
+            <p:inputText value="#{graphicControlMB.selectedNode.dataDiscretize.desiredWeight}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:inputText>                                   
+
+            <p:outputLabel value="Find num bins" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.finNumBins}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+            
+            <p:outputLabel value="Ignore class" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.ignoreClass}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+            
+            <p:outputLabel value="Invert selection" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.invertSelection}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+            
+            <p:outputLabel value="Make binary" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.makeBinary}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+            
+            <p:outputLabel value="Use bin numbers" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.useBinNumbers}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+            
+            <p:outputLabel value="Use equal frequency" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataDiscretize.useEqualFrequency}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataDiscretize.changeForm}"/>
+            </p:selectBooleanButton>
+        </h:panelGrid>
+        <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataDiscretize.saveConfiguration}"/>
+        <br/>
+    </p:dialog>
+</html>
+

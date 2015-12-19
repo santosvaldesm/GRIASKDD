@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgFpGrowth" header="CONFIGURATION FPGROWTH" widgetVar="wvDlgFpGrowth" resizable="false" modal="true">
+        <h:panelGrid columns="2">                
+            <p:outputLabel value="Find All Rules For Support level: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.findAllRulesForSupportlevelFPG}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Max Num Items: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.maxNumberOfItemsFPG}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Delta: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.deltaFPG}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Lower bound min support: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.lowerBoundMinSupportFPG}" decimalPlaces="3" style="width: 100px;">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>    
+            <p:outputLabel value="Num Rules To Find: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.numRulesToFindFPG}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Metric type: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAssociation.metricTypeFPG}" style="width:155px">
+                <f:selectItem itemValue="0" itemLabel="Confidence"/>                    
+                <f:selectItem itemValue="1" itemLabel="Lift"/>
+                <f:selectItem itemValue="2" itemLabel="Leverage"/>
+                <f:selectItem itemValue="3" itemLabel="Conviction"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>                  
+            </p:selectOneMenu>
+            <p:outputLabel value="Use Or Format Must Contain List: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.useOrFormatMustContainListFPG}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>                
+            <p:outputLabel value="Min Metric: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.minMetricFPG}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Rules Must Contain: "/>
+            <p:inputText value="#{graphicControlMB.selectedNode.dataAssociation.rulesMustContainFPG}">                
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:inputText>                
+            <p:outputLabel value="Upper Bound Min Support: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.upperBoundMinSupportFPG}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Transactions Must Contain: "/>
+            <p:inputText value="#{graphicControlMB.selectedNode.dataAssociation.transactionsMustContainFPG}">                
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:inputText>                
+            <p:outputLabel value="Positive Index: "/>                
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.positiveIndexFPG}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>
+        </h:panelGrid>            
+    </p:dialog>
+</html>
+

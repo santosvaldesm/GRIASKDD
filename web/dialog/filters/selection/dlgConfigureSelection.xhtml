@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgConfigureSelection" header="CONFIGURATION SELECTION FILTER" widgetVar="wvDlgConfigureSelection" resizable="false" modal="true">          
+        <h:panelGrid columns="1" id="IdPanelSelection">
+            <h:panelGrid columns="6">
+                <p:outputLabel value="Attributes:" class="bold"/>     <p:outputLabel value="#{graphicControlMB.selectedNode.dataSelection.relationNumAttributes}"/>
+                <p:outputLabel value="Instances:" class="bold"/>      <p:outputLabel value="#{graphicControlMB.selectedNode.dataSelection.relationNumInstances}"/>
+                <p:outputLabel value="Sum of weights:" class="bold"/> <p:outputLabel value="#{graphicControlMB.selectedNode.dataSelection.relationSumWeights}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="3">
+                <p:commandButton value="Select All" actionListener="#{graphicControlMB.selectedNode.dataSelection.selectAllAttributes}" update="IdAttributesSelectionTable"/>
+                <p:commandButton value="Select None" actionListener="#{graphicControlMB.selectedNode.dataSelection.selectNoneAttributes}" update="IdAttributesSelectionTable"/>
+                <p:commandButton value="Select Invert" actionListener="#{graphicControlMB.selectedNode.dataSelection.selectInvertAttributes}" update="IdAttributesSelectionTable"/>
+            </h:panelGrid>
+            <p:dataTable                                               
+                id="IdAttributesSelectionTable" var="attribute" rowKey="#{attribute.idAttribute}" 
+                value="#{graphicControlMB.selectedNode.dataSelection.listAttributes}" 
+                emptyMessage="Empty" pageLinks="5" 
+                style="width: 300px; height: 300px;" scrollHeight="270"
+                scrollable="true" editable="true" editMode="cell">                
+                <p:column headerText="No." width="10">#{attribute.idAttribute + 1}</p:column>                                
+                <p:column headerText="-" width="10">
+                    <p:selectBooleanCheckbox value="#{attribute.selected}">
+                        <p:ajax 
+                            event="change" 
+                            listener="#{graphicControlMB.selectedNode.dataSelection.changeForm}"/>                            
+                    </p:selectBooleanCheckbox>
+                </p:column>                                
+                <p:column headerText="Name" width="150">#{attribute.attributeName}</p:column>            
+            </p:dataTable>  
+            <h:panelGrid columns="3">
+                <p:commandButton value="Remove" actionListener="#{graphicControlMB.selectedNode.dataSelection.removeAttribute}"/>
+                <p:commandButton value="Restart" actionListener="#{graphicControlMB.selectedNode.dataSelection.restartDataset}"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:dialog>
+    <p:dialog id="IdDlgConfirmRemoveAttribute" widgetVar="wvDlgConfirmRemoveAttribute" header="Confirm remove attribute" modal="true" closable="true" resizable="false">
+        <h:panelGrid columns="1">
+            <p:outputLabel value="Proceed to remove selected nodes?"/>
+            <p:commandButton value="Remove" actionListener="#{graphicControlMB.selectedNode.dataSelection.confirmRemoveAttribute}"/>
+        </h:panelGrid>
+    </p:dialog>   
+</html>
+

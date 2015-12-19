@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <p:dialog id="IdDlgEquipAsso" header="CONFIGURATION EQUIPASSO" widgetVar="wvDlgEquipAsso" resizable="false" modal="true">  
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Class: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAssociation.classIndexEA}" style="width:155px">
+                <f:selectItem itemValue="-1" itemLabel="No Class"/>
+                <f:selectItems value="#{graphicControlMB.selectedNode.dataAssociation.listAttributes}"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>                  
+            </p:selectOneMenu>
+            <p:outputLabel value="Minimum support: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.supportEA}" decimalPlaces="2">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                  
+            <p:outputLabel value="Minimum Confidence: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.confidenceEA}" decimalPlaces="2">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>  
+            <p:outputLabel value="Max long in rule: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.maxNumLevelEA}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>  
+            <p:outputLabel value="Num rules: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.maxNumRulesEA}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>  
+            <p:outputLabel value="Output Item Sets: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.outputItemSetsEA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>                
+        </h:panelGrid>  
+    </p:dialog>
+</html>
+

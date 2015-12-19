@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla div { 
+            width: 50px !important;
+            white-space:nowrap !important;
+        }
+    </style>
+    <p:dialog id="IdDlgViewDataAnalisis" header="VIEW DATA ANALISIS" widgetVar="wvDlgViewDataAnalisis" modal="false" >
+        #{graphicControlMB.selectedNode.dataAnalisis.changeSelectAtrribute()}
+        <h:panelGrid columns="2" id="IdPanelDataAnalisis">
+            <h:panelGrid columns="1">                
+                <p:fieldset legend="Attributes">
+                    <h:panelGrid columns="1">
+                        <h:panelGrid columns="6">
+                            <p:outputLabel value="Attributes:" class="bold"/>     <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.relationNumAttributes}"/>
+                            <p:outputLabel value="Instances:" class="bold"/>      <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.relationNumInstances}"/>
+                            <p:outputLabel value="Sum of weights:" class="bold"/> <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.relationSumWeights}"/>
+                        </h:panelGrid>
+                        <p:dataTable                                               
+                            var="attribute" rowKey="#{attribute.idAttribute}" 
+                            value="#{graphicControlMB.selectedNode.dataAnalisis.listAttributes}"                                            
+                            selection="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute}"
+                            selectionMode="single" emptyMessage="Empty" pageLinks="5" 
+                            style="width: 300px; height: 150px;" scrollHeight="120"
+                            scrollable="true">
+                            <p:ajax 
+                                event="rowSelect" 
+                                update="IdFormDialogsDataAnalisis:IdFielSetSelectedAttribute IdFormDialogsDataAnalisis:IdNominalValuesTable IdFormDialogsDataAnalisis:IdNumericValuesTable IdFormDialogsDataAnalisis:IdOtherValuesTable"
+                                listener="#{graphicControlMB.selectedNode.dataAnalisis.changeSelectAtrribute}"/>                            
+                            <p:column headerText="No." width="10">#{attribute.idAttribute + 1}</p:column>                                                            
+                            <p:column headerText="Name" width="150">#{attribute.attributeName}</p:column>            
+                        </p:dataTable>                          
+                    </h:panelGrid>
+                </p:fieldset>
+                <p:fieldset legend="Selected attribute" id="IdFielSetSelectedAttribute">
+                    <h:panelGrid columns="1">
+                        <h:panelGrid columns="4">
+                            <p:outputLabel value="Name: " class="bold"/>     <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.attributeName}"/>
+                            <p:outputLabel value="Type: " class="bold"/>    <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.type}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="6">
+                            <p:outputLabel value="Missing: " class="bold"/> <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.missing}"/>
+                            <p:outputLabel value="Distinct: " class="bold"/><p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.distinct}"/>
+                            <p:outputLabel value="Unique: " class="bold"/>  <p:outputLabel value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.unique}"/>
+                        </h:panelGrid>
+                        <p:dataTable                                               
+                            id="IdNominalValuesTable" var="value" rowKey="#{value.idValue}" 
+                            rendered="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.isNominalData}"
+                            value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.listValuesData}"
+                            emptyMessage="Empty" style="width: 300px; height: 150px;" scrollHeight="120" scrollable="true">                            
+                            <p:column headerText="No." width="10">#{value.idValue}</p:column>                                
+                            <p:column headerText="Label" width="50">#{value.label}</p:column>                                
+                            <p:column headerText="Count" width="20">#{value.count}</p:column>                                
+                            <p:column headerText="Weight" width="20">#{value.weight}</p:column>                                                            
+                        </p:dataTable>  
+                        <p:dataTable                                               
+                            id="IdNumericValuesTable" var="value" rowKey="#{value.idValue}" 
+                            rendered="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.isNumericData}"
+                            value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.listValuesData}"
+                            emptyMessage="Empty" style="width: 300px; height: 150px;" scrollHeight="120" scrollable="true">
+                            <p:column headerText="Statistic" width="10">#{value.label}</p:column>                                
+                            <p:column headerText="Value" width="30">#{value.value}</p:column>
+                        </p:dataTable>  
+                        <p:dataTable                                               
+                            id="IdOtherValuesTable" var="value" rowKey="#{value.idValue}" 
+                            rendered="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.isOtherData}"
+                            value="#{graphicControlMB.selectedNode.dataAnalisis.selectedAtrribute.listValuesData}"
+                            emptyMessage=" " style="width: 300px; height: 150px;" scrollHeight="120" scrollable="true">
+                            <p:column headerText=" " width="10">#{value.label}</p:column>            
+                        </p:dataTable>  
+                    </h:panelGrid>
+                </p:fieldset>
+            </h:panelGrid>
+            <h:panelGrid columns="1">
+                <p:fieldset legend="Visualize">
+                    <h:panelGrid columns="1">
+                        <h:panelGrid columns="3">
+                            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAnalisis.idAtributeClassSelected}" style="width:235px" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="No class" itemValue="-1"/>
+                                <f:selectItems value="#{graphicControlMB.selectedNode.dataAnalisis.listAttributes}" var="atr" itemLabel="Class: #{atr.attributeName}" itemValue="#{atr.idAttribute}" />
+                                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAnalisis.changeAtributeClass}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton icon="fa fa-image" title="Show larger image" onclick="PF('wvDialoglargeImage').show();" />
+                            <p:commandButton icon="fa fa-file-pdf-o" title="Show pdf" actionListener="#{graphicControlMB.selectedNode.dataAnalisis.createPdf}" ajax="false" onclick="this.form.target = '_blank'"/>
+                        </h:panelGrid>
+
+                        <p:panel style="width: 300px; height: 385px; overflow: hidden;" id="IdPanelImageChart">
+                            <p:graphicImage id="IdImageChart" cache="false" value="#{graphicControlMB.selectedNode.dataAnalisis.streamImage}"/>
+                        </p:panel>
+                    </h:panelGrid>
+                </p:fieldset>
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:dialog>
+    <p:dialog id="IdLargeImage" widgetVar="wvDialoglargeImage" header="Image large" modal="false" closable="true" resizable="false">
+        <p:panel id="IdPanelImageChartLarge">
+            <p:graphicImage id="IdImageChartLarge" cache="false" value="#{graphicControlMB.selectedNode.dataAnalisis.streamImageLarge}"/>
+        </p:panel>
+    </p:dialog></html>
+

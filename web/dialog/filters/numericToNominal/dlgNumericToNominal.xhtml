@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgNumericToNominal" header="CONFIGURATION NUMERIC TO NOMINAL FILTER" widgetVar="wvDlgNumericToNominal" resizable="false" modal="true">  
+
+        <h:panelGrid columns="2">                           
+            <p:outputLabel value="Select Attributes :"/>                 
+            <p:selectCheckboxMenu 
+                id="IdComboTipReg2" label="Attributes:" filter="true" filterMatchMode="contains" 
+                value="#{graphicControlMB.selectedNode.dataNumericToNominal.selectedAttributes}" >
+                <f:selectItems var="attribute" value="#{graphicControlMB.selectedNode.dataNumericToNominal.listAttributes}" itemLabel="#{attribute.value}" itemValue="#{attribute.id}" />
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataNumericToNominal.changeForm}"/>
+            </p:selectCheckboxMenu>
+            <p:outputLabel value="Debug:" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataNumericToNominal.debug}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataNumericToNominal.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Do not check capabilities" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataNumericToNominal.checkCapabilities}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataNumericToNominal.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Invert selection" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataNumericToNominal.invertSelection}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataNumericToNominal.changeForm}"/>
+            </p:selectBooleanButton>
+        </h:panelGrid>
+        <p:commandButton value="Save configuration" actionListener="#{graphicControlMB.selectedNode.dataNumericToNominal.saveConfiguration}"/>
+        <br/>
+    </p:dialog>
+</html>
+

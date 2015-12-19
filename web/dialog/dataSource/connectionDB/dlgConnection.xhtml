@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:dialog id="IdDlgConfConnection" header="CONFIGURE CONNECTION" widgetVar="wvDlgConfConnection" resizable="false" modal="true" >  
+        <table>
+            <tr>
+                <td><p:outputLabel value="Driver JDBC:"/></td>
+                <td>
+                    <p:selectOneMenu style="width: 200px;">
+                        <f:selectItem itemLabel="org.postgresql.Driver" itemValue="1"/>
+                        <f:selectItem itemLabel="com.mysql.jdbc.Driver" itemValue="2"/>
+                        <f:selectItem itemLabel="oracle.jdbc.driver.OracleDriver" itemValue="2"/>
+                    </p:selectOneMenu>
+                </td>
+            </tr>
+            <tr>
+                <td><p:outputLabel value="User:"/></td>
+                <td><p:inputText size="40" value="#{graphicControlMB.selectedNode.dataConnectionDB.user}" /></td>
+            </tr>
+            <tr>
+                <td><p:outputLabel value="DataBase:"/></td>
+                <td><p:inputText size="40" value="#{graphicControlMB.selectedNode.dataConnectionDB.db}" /></td>
+            </tr>                    
+            <tr>
+                <td><p:outputLabel value="Host:"/></td>
+                <td><p:inputText size="40" value="#{graphicControlMB.selectedNode.dataConnectionDB.server}" /></td>
+            </tr>
+            <tr>
+                <td><p:outputLabel value="Port:"/></td>
+                <td><p:inputText size="40" value="#{graphicControlMB.selectedNode.dataConnectionDB.port}" /></td>
+            </tr>
+            <tr>
+                <td><p:outputLabel value="Password:"/></td>
+                <td><p:password size="40" value="#{graphicControlMB.selectedNode.dataConnectionDB.password}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p:commandButton value="Connect" actionListener="#{graphicControlMB.selectedNode.dataConnectionDB.connectToDb}" update=":IdFormPrincipal:IdMessages"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p:inputTextarea value="#{graphicControlMB.selectedNode.dataConnectionDB.sql}" style="width: 300px;" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">                        
+                    <p:commandButton value="Execute SQL" actionListener="#{graphicControlMB.selectedNode.dataConnectionDB.excecuteSql}" update=":IdFormDialogsConnectionDB:IdDlgConnectionDataSet"/>
+                </td>
+            </tr>
+        </table>
+    </p:dialog>
+</html>
+

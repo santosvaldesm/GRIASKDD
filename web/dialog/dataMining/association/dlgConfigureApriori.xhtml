@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <p:dialog id="IdDlgApriori" header="CONFIGURATION APRIORI" widgetVar="wvDlgApriori" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Car: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.carA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Class: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAssociation.classIndexA}" style="width:155px">
+                <f:selectItem itemValue="-1" itemLabel="No Class"/>
+                <f:selectItems value="#{graphicControlMB.selectedNode.dataAssociation.listAttributes}"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>                  
+            </p:selectOneMenu>                    
+            <p:outputLabel value="Delta: "/>                
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.deltaA}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Output Item Sets: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.outputItemSetsA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Lower bound min support: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.lowerBoundMinSupportA}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Metric type: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAssociation.metricTypeA}" style="width:155px">
+                <f:selectItem itemValue="0" itemLabel="Confidence"/>                    
+                <f:selectItem itemValue="1" itemLabel="Lift"/>
+                <f:selectItem itemValue="2" itemLabel="Leverage"/>
+                <f:selectItem itemValue="3" itemLabel="Conviction"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>                  
+            </p:selectOneMenu>                                    
+            <p:outputLabel value="Remove All Missing Cols: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.removeAllMissingColsA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>
+
+            <p:outputLabel value="Num Rules: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.numRulesA}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Min Metric: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.minMetricA}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                                
+            <p:outputLabel value="Treat Zero As Missing: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.treatZeroAsMissingA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>                                
+            <p:outputLabel value="Upper Bound Min Support: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.upperBoundMinSupportA}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>                
+            <p:outputLabel value="Significance Level: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataAssociation.significanceLevelA}" decimalPlaces="3">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Verbose: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataAssociation.verboseA}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeForm}"/>
+            </p:selectBooleanButton>
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+

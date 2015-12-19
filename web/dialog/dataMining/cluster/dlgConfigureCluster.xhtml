@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgCluster" header="CONFIGURATION CLUSTER" widgetVar="wvDlgCluster" resizable="false" modal="true">  
+        <p:ajax event="close" listener="#{graphicControlMB.selectedNode.repaintGraphic}"/>        
+        <h:panelGrid columns="2" id="IdPanelConfiguration">
+            <h:panelGrid columns="1">                
+                <h:panelGrid columns="3">    
+                    <p:outputLabel value="Algorithm: "/>                
+                    <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataCluster.selectedClassifier}" style="width:145px">
+                        <f:selectItems value="#{graphicControlMB.selectedNode.dataCluster.listClassifiers}"/>                                                
+                    </p:selectOneMenu>
+                    <p:commandButton icon="fa fa-cogs" actionListener="#{graphicControlMB.selectedNode.dataCluster.clickConfigureClusterer}" style="width: 25px; height: 25px;" title="Configuration of selected algorithm"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">                    
+                    <h:outputLabel value="Ignore attributes: " />
+                    <p:commandButton icon="fa fa-cogs" onclick="PF('wvDlgConfigureIgnoreAttributes').show();" style="width: 25px; height: 25px;" title="Selection of attributes to ignore"/>
+                </h:panelGrid>                
+            </h:panelGrid>
+            <h:panelGrid columns="1">
+
+                <p:outputLabel value="Test options: "/>                
+                <p:selectOneRadio id="customRadio" value="#{graphicControlMB.selectedNode.dataCluster.testOption}" layout="custom">
+                    <f:selectItem itemLabel="Use training set: " itemValue="Use training set" />
+                    <f:selectItem itemLabel="Classes to clusters evaluation: " itemValue="Classes to clusters evaluation" />                    
+                    <f:selectItem itemLabel="Percentage split:  %" itemValue="Percentage split" />                    
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeTestMode}" render="IdCrossValidationFolds IdPercentageSplit IdClassesToClusterEvaluation"/>
+                </p:selectOneRadio>  
+
+                <h:panelGrid columns="6">
+                    <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+                    <h:outputLabel for="opt1" value="Use training set: " />
+                    <h:outputLabel value=" " />
+                    
+                    <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                    <h:outputLabel for="opt2" value="Classes to clusters evaluation: " />
+                    <p:selectOneMenu 
+                        id="IdClassesToClusterEvaluation"
+                        value="#{graphicControlMB.selectedNode.dataCluster.classIndex}" 
+                        disabled="#{graphicControlMB.selectedNode.dataCluster.disabledClassToClusterEvalualtion}" 
+                        style="width:190px">
+                        <f:selectItems value="#{graphicControlMB.selectedNode.dataCluster.listAttributes}"/>
+                        <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>                  
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <h:panelGrid columns="3">                                        
+                    <p:radioButton id="opt3" for="customRadio" itemIndex="2" />
+                    <h:outputLabel for="opt3" value="Percentage split:  %" />
+                    <p:spinner 
+                        id="IdPercentageSplit"
+                        value="#{graphicControlMB.selectedNode.dataCluster.percentageSplit}" 
+                        disabled="#{graphicControlMB.selectedNode.dataCluster.disabledPercentageSplit}">
+                        <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+                    </p:spinner>                                        
+                </h:panelGrid>                
+            </h:panelGrid>
+            <p:outputLabel value="Result List: "/>                 
+            <p:outputLabel value="Classify output: "/>             
+            <p:selectOneListbox  id="IdResultListClasification" style="width: 240px; height: 250px;" value="#{graphicControlMB.selectedNode.dataCluster.selectedResult}">
+                <f:selectItems 
+                    value="#{graphicControlMB.selectedNode.dataCluster.resultList}"
+                    var="result" itemLabel="#{result.nameResult}" itemValue="#{result.id}"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeResultList}" render="IdClusterOutput IdBtnViewTree"/>
+            </p:selectOneListbox>
+            <h:panelGrid id="IdClusterOutput" style="width: 585px; height:250px; overflow:hidden;">
+                <textarea readonly="true" wrap="off" style="color: #2e6e9e;  width: 580px; height:245px; font-family:monospace; overflow: scroll;">
+                    #{graphicControlMB.selectedNode.dataCluster.txtOutput}
+                </textarea>                
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <p:commandButton icon="fa fa-play-circle-o" value="Start"  actionListener="#{graphicControlMB.selectedNode.dataCluster.runProcess}" update="IdClusterOutput IdResultListClasification IdBtnViewTree"/>                
+                <p:commandButton icon="fa fa-times-circle-o" value="Remove" actionListener="#{graphicControlMB.selectedNode.dataCluster.removeProcess}" update="IdClusterOutput IdResultListClasification IdBtnViewTree"/>
+            </h:panelGrid>
+            <h:panelGrid columns="3">
+                <p:commandButton icon="fa fa-download" value="Download output" onclick="PF('wvDlgTxtSaverClusterOutput').show();"/>                                                    
+                <p:commandButton icon="fa fa-sitemap" id="IdBtnViewTree" value="Visualize tree" actionListener="#{graphicControlMB.selectedNode.dataCluster.generarPdf}" ajax="false" onclick="this.form.target = '_blank'" disabled="#{graphicControlMB.selectedNode.dataCluster.disabledVisualizeTree}"/>
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </p:dialog>
+</html>
+

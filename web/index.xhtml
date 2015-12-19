@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+        <title>GRIASKDD</title>
+        <link rel="shortcut icon" href="recursos/img/icon.gif"/>
+        <link href="recursos/css/estilos.css" rel="stylesheet"/>    
+        <script type="text/javascript" src="recursos/js/manejoBarraLateral.js"/>            
+    </h:head>
+    <h:body style="font-size: 10.5px !important">
+        <h:form id="IdFormPrincipal">
+            <p:growl id="IdMessages" showDetail="true" sticky="false" autoUpdate="true" life="5000"/>
+            <p:dialog widgetVar="wvDlgProcessRun" header="Process Runing" closable="false" modal="true" resizable="false">
+                <i class="fa fa-spinner fa-pulse fa-3x"></i>
+                <p:commandButton value="Cancel process" actionListener="#{graphicControlMB.stopProcess}"/>
+            </p:dialog>
+            <pe:timer widgetVar="wvTimerThread" visible="false" timeout="2" singleRun="false" listener="#{graphicControlMB.checkProcessRuning}"/>            
+            <div style="display:none;"><c:forEach var="image" items="#{graphicControlMB.imagesArray}"><img id="Id#{image}" src="./recursos/img/#{image}.png" width="100" height="100"/></c:forEach></div>                      
+            <table style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <td colspan="2"><!--////////////////////// MENU SUPERIOR //////////////////////////////-->
+                        <p:menubar autoDisplay="false">
+                            <p:submenu label="Actions" icon="fa fa-map">
+                                <p:menuitem value="New project" icon="fa fa-file" onclick="PF('wvDlgNewProject').show();"/>
+                                <p:menuitem value="Save project" icon="fa fa-save" onclick="PF('wvDlgSaveProject').show();"/>
+                                <p:menuitem value="Open project" icon="fa fa-folder-open" onclick="PF('wvDlgOpenProject').show();"/>
+                            </p:submenu>  
+                            <p:submenu label="About" icon="fa fa-info-circle">
+                                <p:menuitem value="About..." icon="fa fa-info-circle" />
+                                <p:menuitem value="Help" icon="fa fa-question-circle" onclick="PF('wvDlgHelp').show();"/>
+                                <p:menuitem value="Log" onclick="PF('wvDlgLog').show();" icon="fa fa-desktop" />
+                            </p:submenu>
+                        </p:menubar>
+                        <p:dialog widgetVar="wvDlgHelp" header="GRIASKDD HELP" closable="true">
+                            <iframe frameborder="0" align="left"
+                                    src="faces/./help/indexHelp.xhtml"
+                                    name="someName" id="someId" scrolling="auto" width="850"
+                                    height="400" marginheight="5" marginwidth="10">
+                            </iframe>
+                        </p:dialog>
+                        <p:dialog id="IdDialogLog"  widgetVar="wvDlgLog" header="GRIASKDD LOG" closable="true">
+                            <h:panelGrid id="IdClusterOutput" style="width: 585px; height:250px; overflow:hidden;">
+                                <textarea readonly="true" wrap="off" style="color: #2e6e9e;  width: 580px; height:245px; font-family:monospace; overflow: scroll;">
+                                    #{graphicControlMB.log}
+                                </textarea>                
+                            </h:panelGrid>
+                        </p:dialog>
+                    </td>
+                </tr>
+                <tr>                    
+                    <td style="vertical-align: top;"><!--//////////////////////// MENU LATERAL /////////////////////////-->                        
+                        <div id="IdDivMenu" style="width: 205px; height: 400px; overflow-y: scroll;">
+                            <p:tree id="tree1" value="#{graphicControlMB.root}"  var="node" style="width: 180px;">                                
+                                <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed"><h:outputText value="#{node}" style="z-index: 12; color: blue;"/></p:treeNode>                                
+                                <p:treeNode type="PlainText">          <i class="fa fa-file-text-o"/>    &nbsp;<h:outputText id="dragIcon"   value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon"   revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="ConnectionDB">       <i class="fa fa-database"/>       &nbsp;<h:outputText id="dragIcon2"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon2"  revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="RemoveMissing">      <i class="fa fa-paint-brush"/>    &nbsp;<h:outputText id="dragIcon3"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon3"  revert="true" helper="clone"/></p:treeNode> 
+                                <p:treeNode type="UpdateMissing">      <i class="fa fa-plug"/>           &nbsp;<h:outputText id="dragIcon4"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon4"  revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Selection">          <i class="fa fa-list"/>           &nbsp;<h:outputText id="dragIcon5"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon5"  revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Codification">       <i class="fa fa-cubes"/>          &nbsp;<h:outputText id="dragIcon8"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon8"  revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="ReplaceValue">       <i class="fa fa-wrench"/>         &nbsp;<h:outputText id="dragIcon9"  value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon9"  revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Discretize">         <i class="fa fa-gg"/>             &nbsp;<h:outputText id="dragIcon11" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon11" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Association">        <i class="fa fa-certificate"/>    &nbsp;<h:outputText id="dragIcon12" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon12" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="Classification">     <i class="fa fa-sitemap"/>     &nbsp;<h:outputText id="dragIcon15" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon15" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="NominalToBinary">    <i class="fa fa-object-ungroup"/> &nbsp;<h:outputText id="dragIcon16" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon16" revert="true" helper="clone"/></p:treeNode>                                                                
+                                <p:treeNode type="DataAnalisis">       <i class="fa fa-bar-chart"/>      &nbsp;<h:outputText id="dragIcon17" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon17" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Generator">          <i class="fa fa-line-chart"/>     &nbsp;<h:outputText id="dragIcon18" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon18" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="HierarchicalTree">   <i class="fa fa-sort-amount-asc"/>&nbsp;<h:outputText id="dragIcon19" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon19" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="WekaTree">           <i class="fa fa-sitemap"/>        &nbsp;<h:outputText id="dragIcon20" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon20" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="TextTree">           <i class="fa fa-reorder"/>        &nbsp;<h:outputText id="dragIcon21" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon21" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Prediction">         <i class="fa fa-cube"/>           &nbsp;<h:outputText id="dragIcon22" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon22" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="Cluster">            <i class="fa fa-share-alt"/>           &nbsp;<h:outputText id="dragIcon23" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon23" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="SelectAttributes">   <i class="fa fa-indent"/>         &nbsp;<h:outputText id="dragIcon24" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon24" revert="true" helper="clone"/></p:treeNode>
+                                <p:treeNode type="ArfSaver">           <i class="fa fa-file-code-o"/>    &nbsp;<h:outputText id="dragIcon25" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon25" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="CsvSaver">           <i class="fa fa-file-archive-o"/> &nbsp;<h:outputText id="dragIcon26" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon26" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="SamplingPercentage"> <i class="fa fa-yelp"/>           &nbsp;<h:outputText id="dragIcon27" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon27" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="NumericToNominal">   <i class="fa fa-stack-overflow"/> &nbsp;<h:outputText id="dragIcon28" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon28" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="KNNImputation">      <i class="fa fa-simplybuilt"/>    &nbsp;<h:outputText id="dragIcon29" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon29" revert="true" helper="clone"/></p:treeNode>                                
+                                <p:treeNode type="Metrics">            <i class="fa fa-th"/>             &nbsp;<h:outputText id="dragIcon30" value="#{node}" style="z-index: 12;"/><p:draggable for="dragIcon30" revert="true" helper="clone"/></p:treeNode>                                                                                                                                                                                               
+                            </p:tree>
+                            <p:droppable for="IdPanelCanvasGrafico" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="tree1" onDrop="handleDrop"/>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top;"> <!--//////////////////////// AREA GRAFICA //////////////////////////////-->
+                        <p:panel id="IdPanelCanvasGrafico" style="position: relative; height: 400px; width: 700px; background: white; z-index: 9;" >
+                            <canvas id="IdCanvasEventos" width="700" height="400" style="z-index: 11; position: absolute; top: 0px; left: 0px;"/>
+                            <canvas id="IdCanvasGrafico" width="700" height="400" style="z-index: 10; position: absolute; top: 0px; left: 0px;"/>
+                        </p:panel>
+                    </td>
+                </tr>
+                <!--////////////////////// BARRA DE INFORMACION ////////////////////////-->
+                <!-- tr style="vertical-align: top;">
+                    <td colspan="2"><p:panel style="position: relative; height: 20px; width: 99.5%;"><canvas id="IdBarraInformacion" width="800" height="20" style="position: absolute; top: 0px; left: 0px;"/></p:panel></td>
+                </tr -->
+            </table>
+            <!-- ////// MENU DESPLEGABLE (CLICK DERECHO AREA GRAFICA) ///////////// -->                        
+            <p:overlayPanel  for="IdPanelCanvasGrafico" showEvent="contextmenu" widgetVar="wvContextMenu"  id="IdOverlayPanel" onShow="posicionarConstruirMenu();"><p:menu model="#{graphicControlMB.contextMenuModel}" id="IdContextMenu"/></p:overlayPanel>                                                
+            <!-- /////////////////////// COMANDOS REMOTOS ///////////////////////// -->                        
+            <p:remoteCommand name="rcReloadContextMenu" action="#{graphicControlMB.reloadContextMenu}" update="IdContextMenu"/>
+            <p:remoteCommand name="rcCreateNode" action="#{graphicControlMB.createNode}" />
+            <p:remoteCommand name="rcCreateConnection" action="#{graphicControlMB.createConnection}" />
+            <p:remoteCommand name="rcMoveNode" action="#{graphicControlMB.moveNode}" />
+            <p:remoteCommand name="rcRemoveNode" action="#{graphicControlMB.removeNode}" />
+
+            <script type="text/javascript" src="recursos/js/manejoGrafico.js"/>                        
+        </h:form>   
+        <!--//////////////////////////// DIALOGOS //////////////////////////////-->
+        <h:form id="IdFormDialogsProjects">                        
+            <ui:include src="dialog/projects/dlgNewProject.xhtml"/>
+            <ui:include src="dialog/projects/dlgOpenProject.xhtml"/>
+            <ui:include src="dialog/projects/dlgSaveProject.xhtml"/>
+        </h:form>                
+        <h:form id="IdFormDialogsConnectionDB">                        
+            <ui:include src="dialog/dataSource/connectionDB/dlgConnection.xhtml"/>
+            <ui:include src="dialog/dataSource/connectionDB/dlgConnectionDataSet.xhtml"/>
+        </h:form>        
+        <h:form id="IdFormDialogsPlainText">                        
+            <ui:include src="dialog/dataSource/plainText/dlgViewPlainTextData.xhtml"/>
+            <ui:include src="dialog/dataSource/plainText/dlgOpenPlainText.xhtml"/>
+            <ui:include src="dialog/dataSource/plainText/dlgPlainTextHelp.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsArfSaver">                        
+            <ui:include src="dialog/dataSaver/arfSaver/dlgArfSaverProperties.xhtml"/>            
+        </h:form>
+        <h:form id="IdFormDialogsCsvSaver">                        
+            <ui:include src="dialog/dataSaver/csvSaver/dlgCsvSaverProperties.xhtml"/>            
+        </h:form>
+        <h:form id="IdFormDialogsRemoveMissing">                        
+            <ui:include src="dialog/filters/removeMissing/dlgViewRemoveMissing.xhtml"/>
+        </h:form>        
+        <h:form id="IdFormDialogsReplaceValue">                        
+            <ui:include src="dialog/filters/replaceValue/dlgConfigureReplaceValue.xhtml"/>
+            <ui:include src="dialog/filters/replaceValue/dlgViewReplaceValue.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsUpdateMissing">                        
+            <ui:include src="dialog/filters/updateMissing/dlgConfigureUpdateMissing.xhtml"/>
+            <ui:include src="dialog/filters/updateMissing/dlgViewUpdateMissing.xhtml"/>
+        </h:form>        
+        <h:form id="IdFormDialogsSelection">                        
+            <ui:include src="dialog/filters/selection/dlgConfigureSelection.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsDiscretize">
+            <ui:include src="dialog/filters/discretize/dlgConfigureDiscretize.xhtml"/>
+            <ui:include src="dialog/filters/discretize/dlgViewDiscretize.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsDataAnalisis">
+            <ui:include src="dialog/views/dataAnalisis/dlgViewDataAnalisis.xhtml"/>
+        </h:form>        
+        <h:form id="IdFormDialogsNumericToNominal">
+            <ui:include src="dialog/filters/numericToNominal/dlgNumericToNominal.xhtml"/>
+            <ui:include src="dialog/filters/numericToNominal/dlgViewNumericToNominal.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsNominalToBinary">
+            <ui:include src="dialog/filters/nominalToBinary/dlgNominalToBinary.xhtml"/>
+            <ui:include src="dialog/filters/nominalToBinary/dlgViewNominalToBinary.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsSamplingPercentage">
+            <ui:include src="dialog/filters/samplingPercentage/dlgSamplingPercentage.xhtml"/>
+            <ui:include src="dialog/filters/samplingPercentage/dlgViewSamplingPercentage.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsCodification">
+            <ui:include src="dialog/filters/codification/dlgViewCodification.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsKNNImputation">
+            <ui:include src="dialog/filters/knnImputation/dlgViewKNNImputation.xhtml"/>
+            <ui:include src="dialog/filters/knnImputation/dlgConfigureKNNImputation.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsSelectAttributes">
+            <ui:include src="dialog/filters/selectAttributes/dlgViewSelectAttributes.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgConfigureSelectAttributes.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgInfoGainAttributeEval.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgCorrelationAttributeEval.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgGainRatioAttributeEval.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgOneRAttributeEval.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgSymetricalUncertAttributeEval.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgRanker.xhtml"/>
+            <ui:include src="dialog/filters/selectAttributes/dlgTxtSaverOutput.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsMetrics">
+            <ui:include src="dialog/filters/metrics/dlgViewMetrics.xhtml"/>
+            <ui:include src="dialog/filters/metrics/dlgConfigureMetrics.xhtml"/>
+        </h:form>
+        <h:form id="IdFormDialogsAssociation">
+            <ui:include src="dialog/dataMining/association/dlgConfigureAssociation.xhtml"/>
+            <ui:include src="dialog/dataMining/association/dlgConfigureApriori.xhtml"/>                 
+            <ui:include src="dialog/dataMining/association/dlgConfigureFpGrowth.xhtml"/>
+            <ui:include src="dialog/dataMining/association/dlgConfigureEquipAsso.xhtml"/>
+            <ui:include src="dialog/dataMining/association/dlgTxtSaverAssociationOutput.xhtml"/>   
+        </h:form>        
+        <h:form id="IdFormDialogsClassification">
+            <ui:include src="dialog/dataMining/classification/dlgConfigureClasification.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureDecisionStump.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureHoeffdingTree.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureID3.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureJ48.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureLMT.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureM5P.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureREPTree.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureRandomForest.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgConfigureRandomTree.xhtml"/>
+            <ui:include src="dialog/dataMining/classification/dlgTxtSaverClasificationOutput.xhtml"/>            
+        </h:form>
+        <h:form id="IdFormDialogsCluster">
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureCanopy.xhtml"/>            
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureCluster.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureCobweb.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureEM.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureFarthesFirst.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureHierarchicalClusterer.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgConfigureSimpleKMeans.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgEuclideanDistance.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgIgnoreAttributes.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgManhattanDistance.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgChebyshevDistance.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgMinkowskiDistance.xhtml"/>
+            <ui:include src="dialog/dataMining/cluster/dlgTxtSaverClusterOutput.xhtml"/>            
+        </h:form>
+        #{graphicControlMB.repaintGraphic()}
+    </h:body>
+</html>

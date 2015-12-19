@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgOneRAttributeEval" header="CONFIGURATION ONE R ATTRIBUTE EVALUATOR" widgetVar="wvDlgOneRAttributeEval" resizable="false" modal="true">  
+        <!-- p:ajax event="close" update=":IdFormDialogs:IdDlgSelectAttributes"/ -->        
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Eval using training data:" class="bold"/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataSelectAttributes.oneREvalUsingTrainingData}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Folds:" class="bold"/>      
+            <p:spinner  value="#{graphicControlMB.selectedNode.dataSelectAttributes.oneRFolds}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>                
+            </p:spinner>             
+            <p:outputLabel value="Minimum Bucket Size:" class="bold"/>      
+            <p:spinner  value="#{graphicControlMB.selectedNode.dataSelectAttributes.oneRMinimunBucketSize}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>
+            </p:spinner>             
+            <p:outputLabel value="Seed:" class="bold"/>      
+            <p:spinner  value="#{graphicControlMB.selectedNode.dataSelectAttributes.oneRSeed}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataSelectAttributes.changeForm}"/>
+            </p:spinner>             
+        </h:panelGrid>
+    </p:dialog>
+</html>
+

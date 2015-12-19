@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <style type="text/css">
+        .bla { width: 125px; white-space:nowrap;}
+    </style>
+    <p:dialog id="IdDlgAssociation" header="CONFIGURATION APRIORI" widgetVar="wvDlgAssociation" resizable="false" modal="true">  
+        <p:ajax event="close" listener="#{graphicControlMB.selectedNode.repaintGraphic}"/>        
+        <h:panelGrid columns="1" id="IdPanelConfigurationAssociation">            
+            <h:panelGrid columns="3">    
+                <p:outputLabel value="Algorithm: "/>                
+                <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataAssociation.selectedAssociator}" style="width:145px">
+                    <f:selectItems value="#{graphicControlMB.selectedNode.dataAssociation.listAssociators}"/>                                                
+                </p:selectOneMenu>
+                <p:commandButton icon="fa fa-cogs" actionListener="#{graphicControlMB.selectedNode.dataAssociation.clickConfigureAssociator}" style="width: 25px; height: 25px;" title="Configuration of selected algorithm"/>     
+            </h:panelGrid>                
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Result List: "/>                 
+                <p:outputLabel value="Associator output: "/>                 
+                <p:selectOneListbox id="IdAssociationResultList" style="width: 240px; height: 250px;" value="#{graphicControlMB.selectedNode.dataAssociation.selectedResult}">
+                    <f:selectItems 
+                        value="#{graphicControlMB.selectedNode.dataAssociation.resultList}"
+                        var="result" itemLabel="#{result.nameResult}" itemValue="#{result.id}"/>
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociation.changeResultList}" render="IdAssociationOutput"/>
+                </p:selectOneListbox>                            
+                <h:panelGrid id="IdAssociationOutput" style="width: 585px; height:250px; overflow:hidden;">
+                    <textarea readonly="true" wrap="off" style="color: #2e6e9e;  width: 580px; height:245px; font-family:monospace; overflow: scroll;">
+                        #{graphicControlMB.selectedNode.dataAssociation.txtOutput}
+                    </textarea>                
+                </h:panelGrid>
+                <h:panelGrid columns="3">
+                    <p:commandButton icon="fa fa-play-circle-o" value="Start" actionListener="#{graphicControlMB.selectedNode.dataAssociation.runProcess}" update="IdAssociationOutput IdAssociationResultList"/>
+                    <p:commandButton icon="fa fa-dot-circle-o" value="Stop" actionListener="#{graphicControlMB.selectedNode.dataAssociation.stopProcess}" update="IdAssociationOutput IdAssociationResultList"/>
+                    <p:commandButton icon="fa fa-times-circle-o" value="Remove" actionListener="#{graphicControlMB.selectedNode.dataAssociation.removeProcess}" update="IdAssociationOutput IdAssociationResultList"/>
+                </h:panelGrid>
+                <p:commandButton icon="fa fa-download" value="Download output" onclick="PF('wvDlgTxtSaverAssociationOutput').show();"/>                    
+            </h:panelGrid>
+        </h:panelGrid>
+    </p:dialog>
+</html>
+

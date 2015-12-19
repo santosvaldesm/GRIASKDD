@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgRandomForest" header="CONFIGURATION RANDOM FOREST CLASIFIER" widgetVar="wvDlgRandomForest" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.debugRF}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.doNotCheckCapabilitiesRF}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Dont Calculate Out Of Bag Error: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.dontCalculateOutOfBagErrorRF}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Max Depth: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.maxDepthRF}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Num Executions Slots: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.numExecutionsSlotsRF}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Num Features: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.numFeaturesRF}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Num Trees: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.numTreesRF}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Print Trees: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.printTreesRF}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Seed: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.seedRF}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+        </h:panelGrid>      
+    </p:dialog>
+</html>
+

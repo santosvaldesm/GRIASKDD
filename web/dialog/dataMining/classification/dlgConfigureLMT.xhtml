@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgMT" header="CONFIGURATION LMT CLASIFIER" widgetVar="wvDlgLMT" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Convert Nominal: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.convertNominalLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.debugLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.doNotCheckCapabilitiesLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Do Not Make Split Point Actual Value: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.doNotMakeSplitPointActualValueLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Error On Probabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.errorOnProbabilitiesLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Fast Regression: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.fastRegressionLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Min Num Instances: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.minNumInstancesLMT}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Num Boosting Iterations: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.numBoostingIterationsLMT}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Split On Residuals: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.splitOnResidualsLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="use AIC: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.useAICLMT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>            
+            <p:outputLabel value="Weight Trim Beta: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.weightTrimBetaLMT}">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+

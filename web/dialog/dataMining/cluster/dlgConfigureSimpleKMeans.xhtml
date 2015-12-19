@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdSimpleKMeans" header="CONFIGURATION SIMPLE K MEANS" widgetVar="wvSimpleKMeans" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Canopy Max Canopies To Hold In Memory: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.canopyMaxCanopiesToHoldInMemorySKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Canopy Minimum Canopy Density: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.canopyMinimumCanopyDensitySKM}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Canopy Periodic Pruning Rate: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.canopyPeriodicPruningRateSKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Canopy T1: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.canopyT1SKM}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Canopy T2: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.canopyT2SKM}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.debugSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Display Std Devs: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.displayStdDevsSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Distance Function: "/>
+            <h:panelGrid columns="2">
+                <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataCluster.distanceFunctionSKM}" style="width:155px">                                    
+                    <f:selectItem itemValue="1" itemLabel="EuclideanDistance"/>
+                    <f:selectItem itemValue="2" itemLabel="ManhattanDistance"/>
+                    <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>                  
+                </p:selectOneMenu>  
+                <p:commandButton value="conf." actionListener="#{graphicControlMB.selectedNode.dataCluster.clickBtnDistanceFunctionSKM}"/>
+            </h:panelGrid>
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.doNotCheckCapabilitiesSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Dont Replace Missing Values: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.dontReplaceMissingValuesSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Fast Distance Calc: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.fastDistanceCalcSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Initialization Method: "/>
+            <p:selectOneMenu value="#{graphicControlMB.selectedNode.dataCluster.initializationMethodSKM}" style="width:155px">                
+                <f:selectItem itemValue="0" itemLabel="Gini split"/>
+                <f:selectItem itemValue="1" itemLabel="Info Gain split"/>
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataAssociationApriori.changeForm}"/>                  
+            </p:selectOneMenu>
+            <p:outputLabel value="Max Iterations: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.maxIterationsSKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Num Clusters: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.numClustersSKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Num Execution Slots: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.numExecutionSlotsSKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+            <p:outputLabel value="Preserve Instances Order: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.preserveInstancesOrderSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Reduce Number Of Distance Calcs Via Canopies: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataCluster.reduceNumberOfDistanceCalcsViaCanopiesSKM}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </p:selectBooleanButton> 
+            <p:outputLabel value="Seed: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataCluster.seedSKM}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataCluster.changeForm}"/>
+            </pe:inputNumber> 
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+

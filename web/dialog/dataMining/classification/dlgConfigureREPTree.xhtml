@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+    <p:dialog id="IdDlgREPTree" header="CONFIGURATION REP TREE CLASIFIER" widgetVar="wvDlgREPTree" resizable="false" modal="true">          
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Debug: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.debugREPT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Do Not Check Capabilities: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.doNotCheckCapabilitiesREPT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Initial Count: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.initialCountREPT}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Max Depth: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.maxDepthREPT}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Min Num: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.minNumREPT}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Min Variance Prop: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.minVariancePropREPT}" >
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="No Pruning: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.noPruningREPT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+            <p:outputLabel value="Num Folds: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.numFoldsREPT}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Seed: "/>
+            <pe:inputNumber minValue="-9999999" value="#{graphicControlMB.selectedNode.dataClassification.seedREPT}" decimalPlaces="0">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </pe:inputNumber>
+            <p:outputLabel value="Spread Initial Count: "/>
+            <p:selectBooleanButton value="#{graphicControlMB.selectedNode.dataClassification.spreadInitialCountREPT}" offLabel="False" onLabel="True">
+                <f:ajax event="change" listener="#{graphicControlMB.selectedNode.dataClassification.changeForm}"/>
+            </p:selectBooleanButton>
+        </h:panelGrid>                        
+    </p:dialog>
+</html>
+
